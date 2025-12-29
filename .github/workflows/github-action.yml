@@ -11,12 +11,18 @@ jobs:
       run: echo "Current ref name is ${{ github.ref_name }}"
     - uses: actions/checkout@v4 # Action to check out your repository code
     - uses: databricks/setup-cli@main
+    - name: Debug token
+      run: |
+        if [ -z "${DATABRICKS_TOKEN}" ]; then echo "❌ TOKEN EMPTY"; exit 1; else echo "✅ Token exists"; fi
+      env:
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
     - name: Validate bundle
       working-directory: ./example
-      run: databricks bundle validate
       env:
-          DATABRICKS_AUTH_TYPE: pat
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        DATABRICKS_AUTH_TYPE: pat
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      run: |
+        databricks bundle validate
     # - name: Deploy bundle
     #   run: databricks bundle deploy -t ${{ github.ref_name }}

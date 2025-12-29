@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Print current branch
-      run: echo "Current ref name is ${{ github.ref_name }}"
     - uses: actions/checkout@v4
     - uses: databricks/setup-cli@main
     - name: Install uv
@@ -33,7 +31,7 @@ jobs:
     if: github.event_name == 'push'
     steps:
     - name: Print current branch
-      run: echo "Current ref name is ${{ github.ref_name }}"
+      run: echo "Current ref name is ${{ github.event.pull_request.base.ref }}"
     - uses: actions/checkout@v4
     - uses: databricks/setup-cli@main
     - name: Install uv
@@ -42,7 +40,7 @@ jobs:
         echo "$HOME/.local/bin" >> $GITHUB_PATH
     - name: Deploy bundle
       working-directory: ./example  
-      run: databricks bundle deploy -t ${{ github.ref_name }}
+      run: databricks bundle deploy -t ${{ github.event.pull_request.base.ref }}
       env:
         DATABRICKS_AUTH_TYPE: pat
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}

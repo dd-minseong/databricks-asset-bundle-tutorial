@@ -1,0 +1,17 @@
+name: CI Build and Test
+
+on: [push] # The event that triggers the workflow
+
+jobs:
+  build: # The job ID
+    runs-on: ubuntu-latest # The runner environment
+
+    steps:
+    - name: Print current branch
+      run: echo "Current ref is ${{ github.ref }}"
+    - uses: actions/checkout@v4 # Action to check out your repository code
+    - uses: databricks/setup-cli@main
+    - name: Validate bundle
+      run: databricks bundle validate
+    # - name: Deploy bundle
+    #   run: databricks bundle deploy -t ${{ github.ref_name }}

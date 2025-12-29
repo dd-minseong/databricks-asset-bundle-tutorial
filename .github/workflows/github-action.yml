@@ -14,5 +14,8 @@ jobs:
     - name: Validate bundle
       working-directory: ./example
       run: databricks bundle validate
+      env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
     # - name: Deploy bundle
     #   run: databricks bundle deploy -t ${{ github.ref_name }}

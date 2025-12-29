@@ -20,6 +20,8 @@ resources:
           default: ${var.catalog}
         - name: schema
           default: ${var.schema}
+        - name: environment
+          default: ${var.environment}
 
       tasks:
         - task_key: notebook_task
@@ -36,6 +38,8 @@ resources:
               - "${var.catalog}"
               - "--schema"
               - "${var.schema}"
+              - "--environment"
+              - "${var.environment}"
           environment_key: default
         - task_key: refresh_pipeline
           depends_on:

@@ -7,7 +7,6 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - uses: databricks/setup-cli@main
@@ -18,7 +17,7 @@ jobs:
     - name: Validate bundle
       working-directory: ./example
       env:
-        DATABRICKS_AUTH_TYPE: pat
+        DATABRICKS_AUTH_TYPE: oauth-m2m
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |

@@ -19,6 +19,8 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
+  environment:
+    description: The deploy environment
 
 targets:
   dev:
@@ -33,6 +35,7 @@ targets:
     variables:
       catalog: training
       schema: kms
+      environment: dev
   prod:
     mode: production
     workspace:
@@ -42,6 +45,7 @@ targets:
     variables:
       catalog: training
       schema: kms
+      environment: prod
     permissions:
       - user_name: minseong.kim@data-dynamics.io
         level: CAN_MANAGE

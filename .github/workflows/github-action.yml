@@ -1,0 +1,46 @@
+name: Validate and Deploy
+
+on:
+  pull_request:
+    types: [opened, syncronized, reopened, closed]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: databricks/setup-cli@main
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    - name: Validate bundle
+      working-directory: ./example
+      env:
+        DATABRICKS_AUTH_TYPE: pat
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      run: |
+        databricks bundle validate
+  
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event.pull_request.merged == true
+    steps:
+    - name: Print base branch
+      run: echo "Base branch is ${{ github.event.pull_request.base.ref }}"
+    - uses: actions/checkout@v4
+    - uses: databricks/setup-cli@main
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    - name: Deploy bundle
+      working-directory: ./example  
+      run: databricks bundle deploy -t ${{ github.event.pull_request.base.ref }}
+      env:
+        DATABRICKS_AUTH_TYPE: pat
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}

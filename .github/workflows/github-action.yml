@@ -15,7 +15,8 @@ jobs:
       working-directory: ./example
       run: databricks bundle validate
       env:
+          DATABRICKS_AUTH_TYPE: token
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_ACCOUNT_ID: ${{ secrets.DATABRICKS_ACCOUNT_ID }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
     # - name: Deploy bundle
     #   run: databricks bundle deploy -t ${{ github.ref_name }}

@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Print current branch
-      run: echo "Current ref is ${{ github.ref }}"
+      run: echo "Current ref name is ${{ github.ref_name }}"
     - uses: actions/checkout@v4 # Action to check out your repository code
     - uses: databricks/setup-cli@main
     - name: Validate bundle
@@ -16,6 +16,6 @@ jobs:
       run: databricks bundle validate
       env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_ACCOUNT_ID: ${{ secrets.DATABRICKS_ACCOUNT_ID }}
     # - name: Deploy bundle
     #   run: databricks bundle deploy -t ${{ github.ref_name }}

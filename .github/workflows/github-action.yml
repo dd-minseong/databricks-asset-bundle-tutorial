@@ -2,8 +2,7 @@ name: Validate and Deploy
 
 on:
   pull_request:
-  push:
-    branches: [dev, prod]
+    types: [opened, syncronized, reopened, closed]
 
 jobs:
   validate:
@@ -28,10 +27,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     needs: validate
-    if: github.event_name == 'push'
+    if: github.event.pull_request.merged == true
     steps:
-    - name: Print current branch
-      run: echo "Current ref name is ${{ github.event.pull_request.base.ref }}"
+    - name: Print base branch
+      run: echo "Base branch is ${{ github.event.pull_request.base.ref }}"
     - uses: actions/checkout@v4
     - uses: databricks/setup-cli@main
     - name: Install uv

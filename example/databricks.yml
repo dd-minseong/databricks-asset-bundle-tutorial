@@ -19,8 +19,10 @@ variables:
     description: The catalog to use
   schema:
     description: The schema to use
-  environment:
-    description: The deploy environment
+  target_table:
+    description: Trigger table
+  date:
+    description: date
 
 targets:
   dev:
@@ -35,7 +37,8 @@ targets:
     variables:
       catalog: training
       schema: kms
-      environment: dev
+      target_table: training.kms.autoloader_sample
+      date: "2025-12-02"
   prod:
     mode: production
     workspace:
@@ -43,9 +46,7 @@ targets:
       # We explicitly deploy to /Workspace/Users/minseong.kim@data-dynamics.io to make sure we only have a single copy.
       root_path: /Workspace/Users/minseong.kim@data-dynamics.io/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: training
-      schema: kms
-      environment: prod
-    permissions:
-      - user_name: minseong.kim@data-dynamics.io
-        level: CAN_MANAGE
+      catalog: poc
+      schema: sk_chem_edu
+      target_table: poc.sk_chem_edu.autoloader_sample
+      date: "2025-12-02"

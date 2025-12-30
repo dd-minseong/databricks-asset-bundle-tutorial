@@ -7,9 +7,11 @@ resources:
 
       trigger:
         # Run this job every day, exactly one day from the last run; see https://docs.databricks.com/api/workspace/jobs/create#trigger
-        periodic:
-          interval: 1
-          unit: DAYS
+        pause_status: UNPAUSED
+        table_update:
+          table_names:
+            - ${var.target_table}
+          condition: ANY_UPDATED
 
       #email_notifications:
       #  on_failure:
@@ -20,32 +22,15 @@ resources:
           default: ${var.catalog}
         - name: schema
           default: ${var.schema}
-        - name: environment
-          default: ${var.environment}
+        - name: date
+          default: ${var.date}
+        - name: target_table
+          default: ${var.target_table}
 
       tasks:
         - task_key: notebook_task
           notebook_task:
             notebook_path: ../src/sample_notebook.ipynb
-        - task_key: python_wheel_task
-          depends_on:
-            - task_key: notebook_task
-          python_wheel_task:
-            package_name: example
-            entry_point: main
-            parameters:
-              - "--catalog"
-              - "${var.catalog}"
-              - "--schema"
-              - "${var.schema}"
-              - "--environment"
-              - "${var.environment}"
-          environment_key: default
-        - task_key: refresh_pipeline
-          depends_on:
-            - task_key: notebook_task
-          pipeline_task:
-            pipeline_id: ${resources.pipelines.example_etl.id}
 
       environments:
         - environment_key: default

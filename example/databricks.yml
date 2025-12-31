@@ -32,7 +32,7 @@ targets:
       host: https://dbc-27c6e772-6907.cloud.databricks.com
     variables:
       target_table: poc.sk_chem_edu.disease_sample
-      date: "2025-12-01"
+      date: "2025-12-02"
     permissions:
       - user_name: minseong.kim@data-dynamics.io
         level: CAN_MANAGE

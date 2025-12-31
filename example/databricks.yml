@@ -36,8 +36,6 @@ targets:
     permissions:
       - user_name: minseong.kim@data-dynamics.io
         level: CAN_MANAGE
-      - group_name: admins
-        level: CAN_MANAGE
       - group_name: users
         level: CAN_MANAGE
   prod:
@@ -51,8 +49,6 @@ targets:
       date: "2025-12-02"
     permissions:
       - user_name: minseong.kim@data-dynamics.io
-        level: CAN_MANAGE
-      - group_name: admins
         level: CAN_MANAGE
       - group_name: users
         level: CAN_MANAGE

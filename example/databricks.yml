@@ -36,7 +36,7 @@ targets:
     permissions:
       - user_name: minseong.kim@data-dynamics.io
         level: CAN_MANAGE
-      - group_name: admin
+      - group_name: admins
         level: CAN_MANAGE
       - group_name: all_user
         level: CAN_MANAGE
@@ -52,7 +52,7 @@ targets:
     permissions:
       - user_name: minseong.kim@data-dynamics.io
         level: CAN_MANAGE
-      - group_name: admin
+      - group_name: admins
         level: CAN_MANAGE
       - group_name: all_user
         level: CAN_MANAGE

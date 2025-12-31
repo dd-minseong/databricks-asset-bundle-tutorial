@@ -38,7 +38,7 @@ targets:
         level: CAN_MANAGE
       - group_name: admins
         level: CAN_MANAGE
-      - group_name: all_user
+      - group_name: users
         level: CAN_MANAGE
   prod:
     mode: production
@@ -54,5 +54,5 @@ targets:
         level: CAN_MANAGE
       - group_name: admins
         level: CAN_MANAGE
-      - group_name: all_user
+      - group_name: users
         level: CAN_MANAGE

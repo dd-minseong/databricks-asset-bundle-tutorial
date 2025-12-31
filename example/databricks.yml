@@ -33,6 +33,9 @@ targets:
     variables:
       target_table: training.kms.autoloader_sample
       date: "2025-12-01"
+    permissions:
+      - group_name: all_user
+        level: CAN_MANAGE
   prod:
     mode: production
     workspace:
@@ -42,3 +45,6 @@ targets:
     variables:
       target_table: poc.sk_chem_edu.autoloader_sample
       date: "2025-12-02"
+    permissions:
+      - group_name: all_user
+        level: CAN_MANAGE

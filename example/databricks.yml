@@ -15,10 +15,6 @@ artifacts:
 
 # Variable declarations. These variables are assigned in the dev/prod targets below.
 variables:
-  catalog:
-    description: The catalog to use
-  schema:
-    description: The schema to use
   target_table:
     description: Trigger table
   date:
@@ -35,8 +31,6 @@ targets:
     workspace:
       host: https://dbc-27c6e772-6907.cloud.databricks.com
     variables:
-      catalog: training
-      schema: kms
       target_table: training.kms.autoloader_sample
       date: "2025-12-01"
   prod:
@@ -46,7 +40,5 @@ targets:
       # We explicitly deploy to /Workspace/Users/minseong.kim@data-dynamics.io to make sure we only have a single copy.
       root_path: /Workspace/Users/minseong.kim@data-dynamics.io/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: poc
-      schema: sk_chem_edu
       target_table: poc.sk_chem_edu.autoloader_sample
       date: "2025-12-02"

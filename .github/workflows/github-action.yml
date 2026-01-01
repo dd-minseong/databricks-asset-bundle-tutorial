@@ -14,9 +14,6 @@ jobs:
       run: |
         curl -LsSf https://astral.sh/uv/install.sh | sh
         echo "$HOME/.local/bin" >> $GITHUB_PATH
-    - name: Checkout branch
-      run: |
-        echo "Current checked out branch: $(git rev-parse --abbrev-ref HEAD)"
     - name: Validate bundle
       working-directory: ./example
       env:
